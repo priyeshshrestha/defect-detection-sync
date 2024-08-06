@@ -1,0 +1,70 @@
+database:
+  prod:
+    host: 10.10.99.181:27017
+    name: pipeline_final
+    replica: kce-repl
+  logger:
+    host: 10.10.99.181:27017
+    name: logger
+
+cropper:
+  crop_size: 100
+  size_threshold: 81
+  size_count: 3
+  detection_threshold: 0.2
+  distance_threshold: 50
+  preprocess:
+    smcu_window: 3
+    smcu_pixel_threshold: 2
+
+paths:
+  model: /home/beamlab/workspace/models
+  log: /mnt/Project-AVI/logs
+  root: /home/beamlab/workspace/KCE_LOTS #/mnt/QM_FNL_NAS_AVI
+  discord: #https://discord.com/api/webhooks/1210461199586689024/6CKvxK0cN4hKKDWhBmHu6cnEarYH5kYA_xvoK6gCB6II7MP4iBn5cHv-sjSYd9ouBuue
+  cropper: /home/beamlab
+  uploads: /home/beamlab/workspace/kce-validation-api/uploads
+
+
+processor:
+  crop_size: 100
+  size_threshold: 81
+  size_count: 3
+  detection_threshold: 0.2
+  distance_threshold: 50
+  preprocess:
+    smcu_window: 3
+    smcu_pixel_threshold: 2
+    big_size_threshold: 300
+    white_size_threshold: 100
+
+model_type: tf
+
+tf_models:
+  model_filename: frozen_inference_graph.pb 
+  pad: PAD_PT_v2_497.1_reexport
+  smcu: SMCU_NS_402.6_reexport
+  circuit: Circuit1_ckpt_407185_reexport
+  smlma: SMLMA_v5_362.8_reexport
+  orange: Orange_defect_detection
+  big: big_defect_detection
+  white: white_defect_detection
+
+yolo_models:
+  model_filename: best.pt
+  pad: PAD_yolo
+  smcu: SMCU_yolo
+  circuit: CIRCUIT_ yolo
+  smlma: SMLMA_yolo
+  orange: Orange_defect_detection
+  big: big_defect_detection
+  white: white_defect_detection
+
+gpu:
+  fractions:
+    first: 0.2
+    second: 0.2
+
+pc_name: mlsvr07
+
+defect_types: ['smcu', 'pad'] #, 'qfp', 'circuit', 'smlma', "sm7", "sm8"]
